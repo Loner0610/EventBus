@@ -69,6 +69,7 @@ public class EventBus {
 
     private final HandlerPoster mainThreadPoster;
     private final BackgroundPoster backgroundPoster;
+    private final BackgroundPoster singletonBackgroundPoster;
     private final AsyncPoster asyncPoster;
     private final SubscriberMethodFinder subscriberMethodFinder;
 
@@ -116,6 +117,7 @@ public class EventBus {
         stickyEvents = new ConcurrentHashMap<Class<?>, Object>();
         mainThreadPoster = new HandlerPoster(this, Looper.getMainLooper(), 10);
         backgroundPoster = new BackgroundPoster(this);
+        singletonBackgroundPoster = new BackgroundPoster(this);
         asyncPoster = new AsyncPoster(this);
         subscriberMethodFinder = new SubscriberMethodFinder();
         logSubscriberExceptions = true;
@@ -429,6 +431,9 @@ public class EventBus {
                 invokeSubscriber(subscription, event);
             }
             break;
+        case SingletonBackground:
+        	singletonBackgroundPoster.enqueue(subscription, event);
+        	break;
         case Async:
             asyncPoster.enqueue(subscription, event);
             break;

@@ -45,6 +45,12 @@ public enum ThreadMode {
      * return quickly to avoid blocking the background thread.
      */
     BackgroundThread,
+    
+    /**
+     * Subscriber will be called in a single background thread. EventBus uses a single background thread, 
+     * that will deliver all its events sequentially
+     */
+    SingletonBackground,
 
     /**
      * Event handler methods are called in a separate thread. This is always independent from the posting thread and the

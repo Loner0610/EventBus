@@ -61,6 +61,8 @@ class SubscriberMethodFinder {
                             threadMode = ThreadMode.MainThread;
                         } else if (modifierString.equals("BackgroundThread")) {
                             threadMode = ThreadMode.BackgroundThread;
+                        } else if (modifierString.equals("SingletonBackground")) {
+                        	threadMode = ThreadMode.SingletonBackground;
                         } else if (modifierString.equals("Async")) {
                             threadMode = ThreadMode.Async;
                         } else {
